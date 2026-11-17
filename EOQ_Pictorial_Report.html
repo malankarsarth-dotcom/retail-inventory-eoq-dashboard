@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EOQ Inventory Optimization — Pictorial Report</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      max-width: 960px;
+      margin: 40px auto;
+      padding: 0 24px;
+      color: #1d3557;
+      line-height: 1.6;
+    }
+    h1, h2, h3 { color: #1d3557; }
+    h1 { border-bottom: 3px solid #2e86ab; padding-bottom: 10px; }
+    .meta { color: #555; font-size: 0.95rem; margin-bottom: 24px; }
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin: 20px 0 28px;
+    }
+    .kpi {
+      background: #f4f8fb;
+      border-left: 4px solid #2e86ab;
+      padding: 12px 14px;
+      border-radius: 6px;
+    }
+    .kpi .label { font-size: 0.8rem; color: #555; text-transform: uppercase; }
+    .kpi .value { font-size: 1.25rem; font-weight: 700; margin-top: 4px; }
+    figure {
+      margin: 26px 0;
+      padding: 14px;
+      border: 1px solid #e1e8ed;
+      border-radius: 8px;
+      background: #fff;
+      page-break-inside: avoid;
+    }
+    figure img { width: 100%; height: auto; display: block; }
+    figcaption { font-size: 0.9rem; color: #444; margin-top: 10px; }
+    .print-btn {
+      float: right;
+      background: #2e86ab;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    @media print { .print-btn { display: none; } body { margin: 12px auto; } }
+  </style>
+</head>
+<body>
+  <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+  <h1>Retail Inventory Management &amp; Optimization (EOQ Model)</h1>
+  <div class="meta">
+    Session IV: Lab Activity Exercise — Pictorial Submission Report | Dataset: <code>data/supply_chain_data.csv</code> (4,904 valid SKUs)
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi"><div class="label">SKUs Analyzed</div><div class="value">4,904</div></div>
+    <div class="kpi"><div class="label">Mean Optimal EOQ</div><div class="value">267.77 units</div></div>
+    <div class="kpi"><div class="label">Projected Savings</div><div class="value">$43.06M (81.5%)</div></div>
+    <div class="kpi"><div class="label">Reorder Alerts</div><div class="value">999 SKUs (20.4%)</div></div>
+  </div>
+
+  <h2>1. Model &amp; Dataset Mapping</h2>
+  <p>
+    Using the Economic Order Quantity formula <strong>EOQ = &radic;(2DS / H)</strong>, annual demand (<em>D</em>) is mapped to
+    <code>Number of products sold</code>, ordering cost (<em>S</em>) to <code>Costs</code>, and annual holding cost (<em>H</em>)
+    to <code>20% &times; Price</code>. Reorder Point is computed as <code>(D / 365) &times; Lead times</code>.
+  </p>
+
+  <h2>2. Pictorial Results</h2>
+
+  <figure>
+    <img src="report_assets/fig1_monthly_depletion.png" alt="12-Month Inventory Depletion" />
+    <figcaption><strong>Figure 1:</strong> 12-month inventory depletion simulation for <code>SKU0</code> (D = 802, EOQ = 146.9 units, ROP = 15.4 units), with every month labeled with remaining units.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="report_assets/fig2_eoq_cost_curve.png" alt="EOQ Cost Trade-off Curve" />
+    <figcaption><strong>Figure 2:</strong> Annual ordering, holding, and total cost curves for <code>SKU0</code>, comparing optimal EOQ (146.9 units) against the current order quantity (96 units).</figcaption>
+  </figure>
+
+  <figure>
+    <img src="report_assets/fig3_category_cost_comparison.png" alt="Category Cost Comparison" />
+    <figcaption><strong>Figure 3:</strong> Total annual inventory cost across <code>cosmetics</code>, <code>haircare</code>, and <code>skincare</code> under the current policy ($52.82M total) vs. optimal EOQ ($9.76M total).</figcaption>
+  </figure>
+
+  <figure>
+    <img src="report_assets/fig4_top_savings_and_status.png" alt="Top 10 Savings and Stock Status" />
+    <figcaption><strong>Figure 4:</strong> Top 10 SKUs by projected annual cost savings (left) and portfolio stock status relative to Reorder Point (right).</figcaption>
+  </figure>
+</body>
+</html>
